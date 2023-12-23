@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { useAuth } from '../context/AuthContext'
 
 const Login = ({ navigation }: { navigation: any }) => {
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
+  const [identifier, setIdentifier] = useState('')
+  const [password, setPassword] = useState('')
   const { onLogin, onResend } = useAuth()
 
   const handleLogin = async () => {
@@ -19,7 +19,7 @@ const Login = ({ navigation }: { navigation: any }) => {
         navigation.navigate('Verification')
       }
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -47,8 +47,8 @@ const Login = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   }
-});
+})
 
-export default Login;
+export default Login

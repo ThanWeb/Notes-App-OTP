@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { useAuth } from '../context/AuthContext'
 
 const Verification = ({ navigation }: { navigation: any }) => {
-  const [otp, setOTP] = useState('');
+  const [otp, setOTP] = useState('')
   const { onVerification, onResend } = useAuth()
 
   const handleVerifyOTP = async () => {
@@ -16,7 +16,7 @@ const Verification = ({ navigation }: { navigation: any }) => {
       alert('Verifikasi Berhasil')
       navigation.navigate('Login')
     }
-  };
+  }
 
   const handleResendOTP = async () => {
     const result = await onResend!()
@@ -49,8 +49,8 @@ const Verification = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   }
-});
+})
 
-export default Verification;
+export default Verification

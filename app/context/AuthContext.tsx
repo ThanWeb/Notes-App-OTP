@@ -110,7 +110,7 @@ export const AuthProvider = ({children}: any) => {
     onVerification: verification,
     onResend: resendOtp,
     onLogout: logout
-  };
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

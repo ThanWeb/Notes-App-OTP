@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { useAuth } from '../context/AuthContext'
 
 const Register = ({ navigation }: { navigation: any }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const { onRegister } = useAuth()
@@ -20,7 +20,7 @@ const Register = ({ navigation }: { navigation: any }) => {
       alert('Silahkan Lanjut Verifikasi')
       navigation.navigate('Verification')
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -66,8 +66,8 @@ const Register = ({ navigation }: { navigation: any }) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   }
-});
+})
 
-export default Register;
+export default Register
