@@ -9,6 +9,9 @@ interface AuthProps {
   onVerification?: (otp: string) => Promise<any>
   onResend?: () => Promise<any>
   onLogout?: () => Promise<any>
+  onAddNote?: (note: string) => Promise<any>
+  onGetNotes?: () => Promise<any>
+  onDeleteNote?: (id: number) => Promise<any>
 }
 
 const TOKEN_KEY = 'my-jwt'
@@ -103,13 +106,43 @@ export const AuthProvider = ({children}: any) => {
     })
   }
 
+  const addNote = async (note: string) => {
+    try {
+      const result = await axios.post(`${API_URL}notes`, { body: note })
+      return result
+    } catch (error) {
+      return { error: true, message: (error as any).response.data.message }
+    }
+  }
+
+  const getNotes = async () => {
+    try {
+      const result = await axios.get(`${API_URL}notes`)
+      return result
+    } catch (error) {
+      return { error: true, message: (error as any).response.data.message }
+    }
+  }
+
+  const deleteNote = async (id: number) => {
+    try {
+      const result = await axios.post(`${API_URL}notes/delete`, { id })
+      return result
+    } catch (error) {
+      return { error: true, message: (error as any).response.data.message }
+    }
+  }
+
   const value = {
     authState: authState,
     onRegister: register,
     onLogin: login,
     onVerification: verification,
     onResend: resendOtp,
-    onLogout: logout
+    onLogout: logout,
+    onAddNote: addNote,
+    onGetNotes: getNotes,
+    onDeleteNote: deleteNote
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
