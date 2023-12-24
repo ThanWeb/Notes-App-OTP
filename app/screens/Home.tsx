@@ -1,20 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
+import { useAuth } from '../context/AuthContext'
+
+interface INote {
+  id: number
+  body: string
+  userId: string
+  createdAt: string
+  updatedAt: string
+}
 
 const Home = () => {
   const [note, setNote] = useState('')
-  const [notesList, setNotesList] = useState<string[]>([])
+  const [notesList, setNotesList] = useState<INote[] | never[]>([])
+  const { onAddNote, onGetNotes, onDeleteNote } = useAuth()
 
-  const handleAddNote = () => {
+  useEffect(() => {
+    void handleGetNotes()
+  }, [])
+
+  const handleGetNotes = async () => {
+    const result = await onGetNotes!()
+    console.log(result.data.notes)
+    setNotesList(result.data.notes)
+  }
+
+  const handleAddNote = async () => {
     if (note.trim() !== '') {
-      setNotesList([...notesList, note])
+      const result = await onAddNote!(note)
+      alert(result.data.message)
+      setNotesList([result.data.note, ...notesList])
       setNote('')
     }
   }
 
-  const renderItem = ({ item }: { item: string }) => (
-    <View style={styles.noteItem}>
-      <Text>{item}</Text>
+  const handleDeleteNote = async (id: number) => {
+    if (id !== undefined || id !== null) {
+      const result = await onDeleteNote!(id)
+      alert(result.data.message)
+      const newList = notesList.filter((item) => item.id !== id)
+      setNotesList(newList)
+    }
+  }
+
+  const renderItem = ({ item }: { item: INote }) => (
+    <View>
+      <Text key={item.id}>{item.body}</Text>
+      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteNote(item.id)}>
+        <Text style={styles.buttonText}>Delete</Text>
+      </TouchableOpacity>
     </View>
   )
 
@@ -26,6 +60,7 @@ const Home = () => {
         onChangeText={(text) => setNote(text)}
         value={note}
       />
+
       <TouchableOpacity style={styles.addButton} onPress={handleAddNote}>
         <Text style={styles.buttonText}>Add Note</Text>
       </TouchableOpacity>
@@ -73,6 +108,11 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
   },
+  deleteButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+  }
 })
 
 export default Home
