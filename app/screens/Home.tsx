@@ -44,10 +44,10 @@ const Home = () => {
   }
 
   const renderItem = ({ item }: { item: INote }) => (
-    <View>
+    <View style={styles.notesItem}>
       <Text key={item.id}>{item.body}</Text>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteNote(item.id)}>
-        <Text style={styles.buttonText}>Delete</Text>
+      <TouchableOpacity onPress={() => handleDeleteNote(item.id)} style={styles.deleteButton}>
+        <Text style={styles.deleteText}>Delete</Text>
       </TouchableOpacity>
     </View>
   )
@@ -69,7 +69,6 @@ const Home = () => {
         data={notesList}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        style={styles.notesContainer}
       />
     </View>
   )
@@ -98,20 +97,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  notesContainer: {
-    marginTop: 20,
-  },
-  noteItem: {
+  notesItem: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 8,
     borderWidth: 1,
+    marginTop: 10,
     borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   deleteButton: {
     backgroundColor: 'red',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
+  },
+  deleteText: {
+    color: '#fff',
+    fontWeight: 'bold',
   }
 })
 

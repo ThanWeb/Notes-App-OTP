@@ -2,4 +2,4 @@
 - run npm install command
 - install expo go app on smarthphone
 - run npm run start command
-- scan QR code from terminal with expo go app
+- scan QR code from terminal or enter URL manuallay with expo go app
